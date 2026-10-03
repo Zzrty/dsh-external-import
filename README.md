@@ -16,19 +16,19 @@ dsh plugin --profile web add github:Zzrty/dsh-external-import
 ```
 
 然后重启一次Harness —— 新增组合包成员属于组合变更，仅配置的 HMR 不覆盖它。
-之后 **Settings → Plugins** 里会出现 `dsh-external-import`，它的页面在
-**Settings → 外部导入**。
+之后 **Settings → Plugins** 里会出现 `dsh-external-import`，管理页面在
+**Settings → 外部导入**
 
 <details>
 <summary>其它安装方式</summary>
 
-**从本地克隆安装**（开发用；web profile 会即时应用这一行，无需重启）：
+**从本地克隆安装**：
 
 ```sh
 dsh plugin --profile web add /绝对路径/dsh-external-import
 ```
 
-**不作为组合包安装** —— 直接写进你 profile 的
+**不作为组合包安装**
 `$DSH_HOME/profiles/web/cordis.patch.yml`：
 
 ```yaml
@@ -39,7 +39,7 @@ dsh plugin --profile web add /绝对路径/dsh-external-import
         autoMount: []
 ```
 
-`$DSH_HOME` 默认是 `~/.dsh`。web profile 会监视这个文件，改完即时生效。
+`$DSH_HOME` 默认是 `~/.dsh`。web profile 会监视这个文件，改完即时生效
 
 **卸载**：在 Plugins 页面卸载，或
 `dsh plugin --profile web remove dsh-external-import`
@@ -92,26 +92,6 @@ dsh plugin --profile web add /绝对路径/dsh-external-import
 
 配置在激活时校验：字段类型写错会直接让插件加载失败，而不是静默退回默认值。
 
-## 实现结构
-
-```
-宿主半侧（lib/）                            浏览器半侧（client/client.js）
-├── skill provider ── ctx.skills            └── 设置页
-├── 4 个工具 ───────── ctx.tools                 └── fetch /external-import/api
-├── MCP 挂载 ──────── ctx.plugin(mcp-client)          （仅 loopback）
-├── 会话指令 ──────── agent.ctx.systemPrompt.section
-└── 管理接口 ──────── ctx.webServer
-```
-
-
-## 安全边界
-
-- **对其它工具只读**：除了本插件自己的状态文件，不写任何文件。
-- **脱敏**：`env` / `headers` 中键名像凭据的值，以及 URL 里的用户信息和凭据型查询
-  参数，都会在进入模型或设置页之前变成 `<redacted>`。
-- **仅本机**：管理接口只响应 `127.0.0.1`/`::1`，其它来源一律 403。
-- **先预览后动作**：在 `apply: true`（或写进 `autoMount`）之前，不连接、不启进程。
-- **失败隔离**：连不上的服务器会被回滚，不影响其余导入。
 
 ## 已知限制
 
@@ -119,17 +99,14 @@ dsh plugin --profile web add /绝对路径/dsh-external-import
 - **Codex `enabled = false`** 的服务器不导入，尊重原工具的意图。
 - **Trae 主要通过 UI 管理 MCP**，只有落到 `mcp.json` 的配置能读到。
 - **项目级作用域**跟随会话的工作目录，与原工具的语义一致。
-- **技能名会规范化**成 kebab-case（`ESP-IDF` → `esp-idf`、`sem32_hal` → `sem32-hal`），
-  文件本身不动。
 - **stdio 服务器**需要本机有对应可执行文件（`cmd`、`npx`、`uvx`、`python3`…），首次
   连接可能较慢。
-- **首次安装后设置页需要刷新一次**，因为浏览器的插件表是在 Harness 启动时组装。
 
 ## 开发
 
 ```sh
 npm install
-npm run build          # 生成 lib/（已提交；CI 会在它与源码不一致时失败）
+npm run build         
 npm test               # 解析、命名、脱敏、技能名规范化的单测
 npm run link-workspace -- ../deepseek-harness   # 首次做类型检查前执行一次
 npm run typecheck
@@ -146,5 +123,7 @@ npm run verify:management   # 起真实 HTTP 服务驱动管理接口
 代码遵循的规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 许可证
+
+[MIT](LICENSE)
 
 [MIT](LICENSE)
