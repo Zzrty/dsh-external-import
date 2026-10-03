@@ -70,7 +70,7 @@
     "build": "tsc -p tsconfig.build.json --noCheck",
     "typecheck": "node scripts/typecheck.mjs",
     "link-workspace": "node scripts/link-workspace.mjs",
-    "test": "node --test --test-isolation=none tests/parse.test.mjs tests/import.test.mjs",
+    "test": "node scripts/test.mjs",
     "verify:discovery": "node scripts/verify-discovery.mjs",
     "verify:activation": "node scripts/verify-activation.mjs",
     "verify:management": "node scripts/verify-management.mjs"
