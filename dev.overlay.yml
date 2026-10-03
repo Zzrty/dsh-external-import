@@ -1,0 +1,16 @@
+# Development overlay: run this checkout's built plugin without installing it.
+#
+#   pnpm dsh --profile headless --patch <absolute path to this file> --dump-config
+#   pnpm dsh web --patch <absolute path to this file>
+#
+# Relative plugin names are anchored beside this file, so `./lib/index.js`
+# always resolves to the build output next to it.
+- insert:
+    - id: external-import
+      name: './lib/index.js'
+      config:
+        sources: []
+        includeProjectScope: true
+        importSkills: true
+        registerTools: true
+        autoMount: []

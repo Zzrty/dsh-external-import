@@ -1,0 +1,23 @@
+# Bundle patch for dsh-external-import.
+#
+# Installed profiles append this file's rows after their bundle stack:
+#   dsh plugin --profile web add <absolute path to this package>
+# and enable the bundle through the Web Plugins page or `plugin_manager`.
+#
+# The row names this package, which is how the profile resolves a bundle row.
+# A development checkout instead inserts an absolute path to `lib/index.js`
+# directly in the profile's own `cordis.patch.yml` (see README.md).
+- insert:
+    - id: external-import
+      name: 'dsh-external-import'
+      config:
+        # Every supported tool: agents, claude-code, codex, cursor, trae, vscode.
+        sources: []
+        includeProjectScope: true
+        importSkills: true
+        registerTools: true
+        # Imported skills never outrank a skill DeepSeek Harness ships.
+        skillRank: 900
+        # Nothing is connected until a caller asks for it. List the external
+        # server names to import at startup, or "*" for every discovered one.
+        autoMount: []

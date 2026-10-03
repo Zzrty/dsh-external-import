@@ -1,0 +1,25 @@
+{
+  // Shared compiler options for this package alone. It deliberately does not
+  // extend the DeepSeek Harness repository's tsconfig: a clean clone must be
+  // able to build without that checkout, and only `typecheck` needs the
+  // harness's type declarations (see scripts/link-workspace.mjs).
+  "compilerOptions": {
+    "target": "es2024",
+    "lib": ["es2024"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
+  }
+}

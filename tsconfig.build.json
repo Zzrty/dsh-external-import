@@ -1,0 +1,16 @@
+{
+  // Emit graph. `npm run build` adds `--noCheck`, so no type declarations are
+  // needed here: every `@deepseek-ai/*` import in `src` is `import type` and is
+  // erased, and the one runtime module (the MCP client bridge) is resolved by
+  // specifier when a server is actually imported.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "noEmit": false,
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false
+  },
+  "include": ["src"]
+}

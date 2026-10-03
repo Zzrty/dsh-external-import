@@ -1,0 +1,82 @@
+{
+  "name": "dsh-external-import",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin: import the skills and MCP servers you already configured for Claude Code, Codex, Cursor, Trae and VS Code, with a settings page to manage them.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "mcp",
+    "skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "trae",
+    "vscode"
+  ],
+  "homepage": "https://github.com/Zzrty/dsh-external-import#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zzrty/dsh-external-import.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zzrty/dsh-external-import/issues"
+  },
+  "author": "Zzrty",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./client/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^22.19 || >=24"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4",
+    "@deepseek-ai/dsh-mcp-client": "^0.2.0-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-mcp-client": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json --noCheck",
+    "typecheck": "node scripts/typecheck.mjs",
+    "link-workspace": "node scripts/link-workspace.mjs",
+    "test": "node --test --test-isolation=none tests/parse.test.mjs tests/import.test.mjs",
+    "verify:discovery": "node scripts/verify-discovery.mjs",
+    "verify:activation": "node scripts/verify-activation.mjs",
+    "verify:management": "node scripts/verify-management.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.6.0 || ^6.0.0"
+  }
+}

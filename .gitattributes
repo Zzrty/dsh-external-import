@@ -1,0 +1,6 @@
+# Normalize to LF everywhere so the committed build output is byte-identical on
+# every platform; CI compares a fresh build against it.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary

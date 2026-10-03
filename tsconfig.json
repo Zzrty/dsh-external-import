@@ -1,0 +1,19 @@
+{
+  // Type-check graph. It resolves the harness packages through `node_modules`,
+  // which `npm run link-workspace -- <path to a deepseek-harness checkout>`
+  // populates with links to that checkout's built declarations. Building and
+  // testing need none of this; only type checking does.
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@deepseek-ai/cordis": ["./node_modules/@deepseek-ai/cordis/lib/types/index.d.ts"],
+      "@deepseek-ai/dsh-agent": ["./node_modules/@deepseek-ai/dsh-agent/lib/types/index.d.ts"],
+      "@deepseek-ai/dsh-session": ["./node_modules/@deepseek-ai/dsh-session/lib/types/index.d.ts"],
+      "@deepseek-ai/dsh-skill": ["./node_modules/@deepseek-ai/dsh-skill/lib/types/index.d.ts"],
+      "@deepseek-ai/dsh-system-prompt": ["./node_modules/@deepseek-ai/dsh-system-prompt/lib/types/index.d.ts"],
+      "@deepseek-ai/dsh-tools": ["./node_modules/@deepseek-ai/dsh-tools/lib/types/index.d.ts"]
+    }
+  },
+  "include": ["src"]
+}

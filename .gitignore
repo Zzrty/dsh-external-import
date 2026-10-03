@@ -1,0 +1,8 @@
+node_modules/
+tsconfig.workspace.json
+*.tsbuildinfo
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
